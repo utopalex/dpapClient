@@ -49,7 +49,7 @@
             NSNumber* number = [NSNumber numberWithInteger:intValueBE];
             resultValue = number;
         }
-        if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"string"])
+        else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"string"])
         {
             NSData* dictData = [relevantDict objectForKey:@"DATA"];
             NSString* value = [[NSString alloc] initWithData:dictData encoding:NSUTF8StringEncoding];
@@ -58,6 +58,16 @@
         else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"Container"])
         {
             resultValue = [relevantDict objectForKey:@"DATA"];
+        }
+        else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"pointer"])
+        {
+            NSData* dictData = [relevantDict objectForKey:@"DATA"];
+            /*NSInteger integerValue;
+            [dictData getBytes:&integerValue length:sizeof(NSInteger)];
+            NSData re
+            NSInteger intValueBE = CFSwapInt32HostToBig(integerValue);
+            NSNumber* number = [NSNumber numberWithInteger:intValueBE];*/
+            resultValue = dictData;
         }
     }
     else
@@ -69,7 +79,7 @@
 {
     if (serverResponse.count == 1)
     {
-        _sessionId = [self findAndInterpretValueFor:@"dmap.sessionid" inContainer:serverResponse];
+        _sessionId = @([[self findAndInterpretValueFor:@"dmap.sessionid" inContainer:serverResponse] intValue]);
     }
 }
 

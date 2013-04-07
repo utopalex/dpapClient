@@ -46,6 +46,9 @@
 		FA17BF2F1658362A008B9241 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = FA17BF1D1658362A008B9241 /* UIImageView+AFNetworking.m */; };
 		FA2F882016F73F5C00F87DAE /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2F881F16F73F5C00F87DAE /* ContainerViewController.m */; };
 		FA320A151711D3ED00D66CEE /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = FA320A141711D3ED00D66CEE /* AppSettings.m */; };
+		FA320A1A1712008700D66CEE /* AlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA320A191712008600D66CEE /* AlbumViewController.m */; };
+		FA320A1E171206AD00D66CEE /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA320A1C171206AC00D66CEE /* ItemViewController.m */; };
+		FA320A1F171206AD00D66CEE /* ItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA320A1D171206AC00D66CEE /* ItemViewController.xib */; };
 		FAF8DCB9165AD4ED002E15B7 /* DMAPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF8DCB8165AD4EC002E15B7 /* DMAPSession.m */; };
 		FAF8DCBA165AD4ED002E15B7 /* DMAPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF8DCB8165AD4EC002E15B7 /* DMAPSession.m */; };
 /* End PBXBuildFile section */
@@ -109,6 +112,11 @@
 		FA2F881F16F73F5C00F87DAE /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		FA320A131711D3ED00D66CEE /* AppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSettings.h; sourceTree = "<group>"; };
 		FA320A141711D3ED00D66CEE /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
+		FA320A181712008600D66CEE /* AlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlbumViewController.h; path = ../AlbumViewController.h; sourceTree = "<group>"; };
+		FA320A191712008600D66CEE /* AlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlbumViewController.m; path = ../AlbumViewController.m; sourceTree = "<group>"; };
+		FA320A1B171206AC00D66CEE /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		FA320A1C171206AC00D66CEE /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
+		FA320A1D171206AC00D66CEE /* ItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemViewController.xib; sourceTree = "<group>"; };
 		FAF8DCB7165AD4EC002E15B7 /* DMAPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMAPSession.h; sourceTree = "<group>"; };
 		FAF8DCB8165AD4EC002E15B7 /* DMAPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMAPSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +179,7 @@
 		FA17BEC9165833F7008B9241 /* dpapClient */ = {
 			isa = PBXGroup;
 			children = (
+				FA17BECA165833F7008B9241 /* Supporting Files */,
 				FA17BED2165833F7008B9241 /* AppDelegate.h */,
 				FA320A131711D3ED00D66CEE /* AppSettings.h */,
 				FA320A141711D3ED00D66CEE /* AppSettings.m */,
@@ -181,7 +190,11 @@
 				FA17BEE2165833F7008B9241 /* ViewController.m */,
 				FA2F881E16F73F5C00F87DAE /* ContainerViewController.h */,
 				FA2F881F16F73F5C00F87DAE /* ContainerViewController.m */,
-				FA17BECA165833F7008B9241 /* Supporting Files */,
+				FA320A181712008600D66CEE /* AlbumViewController.h */,
+				FA320A191712008600D66CEE /* AlbumViewController.m */,
+				FA320A1B171206AC00D66CEE /* ItemViewController.h */,
+				FA320A1C171206AC00D66CEE /* ItemViewController.m */,
+				FA320A1D171206AC00D66CEE /* ItemViewController.xib */,
 				FA14E4FA16584F2500B3AB11 /* DMAPDecoder.h */,
 				FA14E4FB16584F2500B3AB11 /* DMAPDecoder.m */,
 				FAF8DCB7165AD4EC002E15B7 /* DMAPSession.h */,
@@ -334,6 +347,7 @@
 				FA17BEDA165833F7008B9241 /* Default-568h@2x.png in Resources */,
 				FA17BEDD165833F7008B9241 /* MainStoryboard_iPhone.storyboard in Resources */,
 				FA17BEE0165833F7008B9241 /* MainStoryboard_iPad.storyboard in Resources */,
+				FA320A1F171206AD00D66CEE /* ItemViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +398,8 @@
 				FAF8DCB9165AD4ED002E15B7 /* DMAPSession.m in Sources */,
 				FA2F882016F73F5C00F87DAE /* ContainerViewController.m in Sources */,
 				FA320A151711D3ED00D66CEE /* AppSettings.m in Sources */,
+				FA320A1A1712008700D66CEE /* AlbumViewController.m in Sources */,
+				FA320A1E171206AD00D66CEE /* ItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

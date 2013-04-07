@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "AppSettings.h"
 #import "DMAPDecoder.h"
+#import "AlbumViewController.h"
 
 @interface ContainerViewController ()
 
@@ -124,13 +125,11 @@
                                                         int returnedCount = [[self.dmapSession findAndInterpretValueFor:@"dmap.returnedcount" inContainer:array] intValue];
                                                         NSArray* listing = [self.dmapSession findAndInterpretValueFor:@"dmap.listing" inContainer:array];
                                                         NSLog(@"Returned %i item - list length is supposed to be %i", listing.count, returnedCount);
-                                                        /*
-                                                        NSArray* listing = [self.session findAndInterpretValueFor:@"dmap.listing" inContainer:array];
-                                                        self.session.containers = listing;
-                                                        ContainerViewController* containerViewController = [[ContainerViewController alloc] initWithStyle:UITableViewStylePlain];
-                                                        containerViewController.dmapSession = self.session;
-                                                        [self.navigationController pushViewController:containerViewController animated:YES];
-                                                         */
+                                                        
+                                                        AlbumViewController* albumViewController = [[AlbumViewController alloc] initWithStyle:UITableViewStylePlain];
+                                                        albumViewController.dmapSession = self.dmapSession;
+                                                        albumViewController.itemsContainerArray = listing;
+                                                        [self.navigationController pushViewController:albumViewController animated:YES];
                                                         
                                                         
                                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

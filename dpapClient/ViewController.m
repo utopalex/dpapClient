@@ -59,6 +59,7 @@
                                                         NSArray* array = [self.decoder parseDmapResponse:responseObject];
                                                         int returnedCount = [[self.session findAndInterpretValueFor:@"dmap.returnedcount" inContainer:array] intValue];
                                                         NSArray* listing = [self.session findAndInterpretValueFor:@"dmap.listing" inContainer:array];
+                                                        NSLog(@"Expecting %i containers - got %i", returnedCount, listing.count);
                                                         self.session.containers = listing;
                                                         ContainerViewController* containerViewController = [[ContainerViewController alloc] initWithStyle:UITableViewStylePlain];
                                                         containerViewController.dmapSession = self.session;
