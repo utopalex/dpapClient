@@ -9,14 +9,25 @@
 #import "ContainerViewController.h"
 #import "AFNetworking.h"
 #import "AppSettings.h"
+#import "DMAPDecoder.h"
 
 @interface ContainerViewController ()
 
-@property(nonatomic, retain) AFHTTPClient* client;
+@property(nonatomic, strong) AFHTTPClient* client;
+@property(nonatomic, strong) DMAPDecoder* decoder;
 
 @end
 
 @implementation ContainerViewController
+
+-(DMAPDecoder*) decoder
+{
+    if (!_decoder)
+    {
+        _decoder = [[DMAPDecoder alloc] init];
+    }
+    return _decoder;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -56,6 +67,7 @@
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     if (indexPath.row < self.dmapSession.containers.count)
@@ -83,9 +95,9 @@
         NSArray* listingItemContainer = [self.dmapSession findAndInterpretValueFor:@"dmap.listingitem" inContainer:currentContainerInfo];
         if (listingItemContainer)
         {
-            NSInteger itemId = [self.dmapSession findAndInterpretValueFor:@"dmap.itemid" inContainer:listingItemContainer];
-            NSLog(@"%i", itemId);
-            // Does not seem to work
+            NSInteger itemId = [[self.dmapSession findAndInterpretValueFor:@"dmap.itemid" inContainer:listingItemContainer] intValue];
+            NSLog(@"Querying for container %i", itemId);
+            [self getItemsForContainerId:itemId];
         }
     }
 }
@@ -100,13 +112,19 @@
                                        containerId,
                                        [self.dmapSession.sessionId intValue]]];
     NSMutableURLRequest *request = [AppSettings buildRequest:url authorize:YES];
+    if (!_client)
+    {
+        self.client = [AFHTTPClient clientWithBaseURL:url];
+    }
     AFHTTPRequestOperation* httpRequestOperation = [self.client HTTPRequestOperationWithRequest:request
                                                                                         success:^(AFHTTPRequestOperation *operation, id responseObject)
                                                     {
-                                                        /*
+                                                        
                                                         NSArray* array = [self.decoder parseDmapResponse:responseObject];
-                                                        NSLog(@"%@", array);
-                                                        int returnedCount = [[self.session findAndInterpretValueFor:@"dmap.returnedcount" inContainer:array] intValue];
+                                                        int returnedCount = [[self.dmapSession findAndInterpretValueFor:@"dmap.returnedcount" inContainer:array] intValue];
+                                                        NSArray* listing = [self.dmapSession findAndInterpretValueFor:@"dmap.listing" inContainer:array];
+                                                        NSLog(@"Returned %i item - list length is supposed to be %i", listing.count, returnedCount);
+                                                        /*
                                                         NSArray* listing = [self.session findAndInterpretValueFor:@"dmap.listing" inContainer:array];
                                                         self.session.containers = listing;
                                                         ContainerViewController* containerViewController = [[ContainerViewController alloc] initWithStyle:UITableViewStylePlain];

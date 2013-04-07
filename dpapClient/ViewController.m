@@ -57,7 +57,6 @@
                                                                                         success:^(AFHTTPRequestOperation *operation, id responseObject)
                                                     {
                                                         NSArray* array = [self.decoder parseDmapResponse:responseObject];
-                                                        NSLog(@"%@", array);
                                                         int returnedCount = [[self.session findAndInterpretValueFor:@"dmap.returnedcount" inContainer:array] intValue];
                                                         NSArray* listing = [self.session findAndInterpretValueFor:@"dmap.listing" inContainer:array];
                                                         self.session.containers = listing;
