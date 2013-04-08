@@ -498,7 +498,7 @@
         uint8_t size_a[4];
         [data getBytes:&code range:NSMakeRange(currentPosition, 4)];
         [data getBytes:&size_a range:NSMakeRange(currentPosition+4, 4)];
-        UInt64 size = (uint)size_a[0] * 255*255*255 + (uint)size_a[1] * 255*255 + (uint)size_a[2] * 255 + (uint)size_a[3];
+        UInt64 size = (uint)size_a[0] * 256*256*256 + (uint)size_a[1] * 256*256 + (uint)size_a[2] * 256 + (uint)size_a[3];
         NSString* codeString = [[NSString alloc] initWithBytes:code length:4 encoding:NSASCIIStringEncoding];
         if (currentPosition+8+size <= data.length)
         {
