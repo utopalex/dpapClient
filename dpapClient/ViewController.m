@@ -13,18 +13,22 @@
 #import "DMAPSession.h"
 #import "AppSettings.h"
 #import "ContainerViewController.h"
+#include <arpa/inet.h>
 
 @interface ViewController ()
 
-@property(nonatomic, retain) DMAPDecoder* decoder;
-@property(nonatomic, retain) DMAPSession* session;
-@property(nonatomic, retain) AFHTTPClient* client;
+@property(nonatomic, strong) DMAPDecoder* decoder;
+@property(nonatomic, strong) DMAPSession* session;
+@property(nonatomic, strong) AFHTTPClient* client;
 @property (weak, nonatomic) IBOutlet UITextField *hostNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-
+@property(nonatomic, strong) NSNetServiceBrowser *serviceBrowser;
+@property (nonatomic, strong) NSMutableArray *services;
 @end
 
 @implementation ViewController
+
+BOOL searching;
 
 -(DMAPDecoder*) decoder
 {
@@ -39,6 +43,14 @@
 {
     [super viewDidLoad];
     self.hostNameTextField.text  = @"127.0.0.1:8770";
+        
+    self.serviceBrowser = [[NSNetServiceBrowser alloc] init];
+    [self.serviceBrowser setDelegate:self];
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self.serviceBrowser searchForServicesOfType:@"_dpap._tcp." inDomain:@""];
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,4 +156,60 @@
     [self setPasswordTextField:nil];
     [super viewDidUnload];
 }
+
+#pragma mark NSNetServiceBrowserDelegate
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser
+           didFindService:(NSNetService *)aNetService
+               moreComing:(BOOL)moreComing
+{
+    if (!self.services) {
+        self.services = [[NSMutableArray alloc] init];
+    }
+    [self.services addObject:aNetService];
+    [aNetService setDelegate:self];
+    [aNetService resolveWithTimeout:3.0];
+    if(!moreComing)
+    {
+       [browser stop];
+    }
+}
+
+#pragma mark NSNetServiceDelegate
+
+- (void)netServiceDidResolveAddress:(NSNetService *)sender
+{
+    for (NSData* data in [sender addresses]) {
+        char addressBuffer[100];
+        struct sockaddr_in* socketAddress = (struct sockaddr_in*) [data bytes];
+        int sockFamily = socketAddress->sin_family;
+        if (sockFamily == AF_INET || sockFamily == AF_INET6) {
+            const char* addressStr = inet_ntop(sockFamily,
+                                               &(socketAddress->sin_addr), addressBuffer,
+                                               sizeof(addressBuffer));
+            int port = ntohs(socketAddress->sin_port);
+            if (addressStr && port)
+            {
+                NSLog(@"Found service at %s:%d", addressStr, port);
+                self.hostNameTextField.text  = [NSString stringWithFormat:@"%s:%d", addressStr, port];
+                break;
+            }
+        }
+    }
+}
+
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
+{
+    NSLog(@"Error resolving: %@", errorDict );
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [self.serviceBrowser stop];
+    for (NSNetService* service in self.services) {
+        [service stop];
+    }
+    [self.services removeAllObjects];
+}
+
 @end
