@@ -112,6 +112,9 @@
                                                     }];
     [httpRequestOperation start];
 }
+- (IBAction)didPressConnectiPsf:(id)sender {
+    [self didPressConnect:sender];
+}
 
 - (IBAction)didPressConnect:(id)sender {
     NSString* hostName = self.hostNameTextField.text;
