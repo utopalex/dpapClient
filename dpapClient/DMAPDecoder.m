@@ -474,14 +474,14 @@
 -(NSDictionary*) parseToken:(NSString*) tokenName withData:(NSData*) currentData
 {
     NSDictionary* resultValue = @{};
-    NSDictionary* tokenInfo = [decodingInfo objectForKey:tokenName];
+    NSDictionary* tokenInfo = decodingInfo[tokenName];
     if (tokenInfo)
     {
-        currentData = [[tokenInfo objectForKey:@"TYPE"] isEqualToString:@"Container"] ? [self parseDmapResponse:currentData] : currentData;
+        currentData = [tokenInfo[@"TYPE"] isEqualToString:@"Container"] ? [self parseDmapResponse:currentData] : currentData;
         resultValue = @{
-        @"ID" : [tokenInfo objectForKey:@"ID"],
-        @"NAME" : [tokenInfo objectForKey:@"NAME"],
-        @"TYPE" : [tokenInfo objectForKey:@"TYPE"],
+        @"ID" : tokenInfo[@"ID"],
+        @"NAME" : tokenInfo[@"NAME"],
+        @"TYPE" : tokenInfo[@"TYPE"],
         @"DATA" : currentData
         };
     }

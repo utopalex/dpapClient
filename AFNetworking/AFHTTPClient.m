@@ -565,9 +565,10 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {}
     }];
     
     for (AFHTTPRequestOperation *operation in operations) {
+        AFHTTPRequestOperation __weak *currentBlockOperation = operation;
         AFCompletionBlock originalCompletionBlock = [operation.completionBlock copy];
         operation.completionBlock = ^{
-            dispatch_queue_t queue = operation.successCallbackQueue ?: dispatch_get_main_queue();
+            dispatch_queue_t queue = currentBlockOperation.successCallbackQueue ?: dispatch_get_main_queue();
             dispatch_group_async(dispatchGroup, queue, ^{
                 if (originalCompletionBlock) {
                     originalCompletionBlock();

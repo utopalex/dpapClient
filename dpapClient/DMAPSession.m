@@ -26,47 +26,42 @@
     }
     for (NSDictionary* dict in container)
     {
-        if ([[dict objectForKey:@"NAME"] isEqual:key])
+        if ([dict[@"NAME"] isEqual:key])
         {
             relevantDict = dict;
             interpretItLater = YES;
         }
-        else if ([[dict objectForKey:@"TYPE"] isEqual:@"Container"])
+        else if ([dict[@"TYPE"] isEqual:@"Container"])
         {
-            relevantDict = [self findAndInterpretValueFor:key inContainer:[dict objectForKey:@"DATA"]];
+            relevantDict = [self findAndInterpretValueFor:key inContainer:dict[@"DATA"]];
         }
         if (relevantDict)
             break;
     }
     if (relevantDict && interpretItLater && [relevantDict isKindOfClass:[NSDictionary class]] )
     {
-        if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"integer"])
+        if ([relevantDict[@"TYPE"] isEqual:@"integer"])
         {
-            NSData* dictData = [relevantDict objectForKey:@"DATA"];
+            NSData* dictData = relevantDict[@"DATA"];
             NSInteger integerValue;
             [dictData getBytes:&integerValue length:sizeof(NSInteger)];
             NSInteger intValueBE = CFSwapInt32HostToBig(integerValue);
-            NSNumber* number = [NSNumber numberWithInteger:intValueBE];
+            NSNumber* number = @(intValueBE);
             resultValue = number;
         }
-        else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"string"])
+        else if ([relevantDict[@"TYPE"] isEqual:@"string"])
         {
-            NSData* dictData = [relevantDict objectForKey:@"DATA"];
+            NSData* dictData = relevantDict[@"DATA"];
             NSString* value = [[NSString alloc] initWithData:dictData encoding:NSUTF8StringEncoding];
             resultValue = value;
         }
-        else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"Container"])
+        else if ([relevantDict[@"TYPE"] isEqual:@"Container"])
         {
-            resultValue = [relevantDict objectForKey:@"DATA"];
+            resultValue = relevantDict[@"DATA"];
         }
-        else if ([[relevantDict objectForKey:@"TYPE"] isEqual:@"pointer"])
+        else if ([relevantDict[@"TYPE"] isEqual:@"pointer"])
         {
-            NSData* dictData = [relevantDict objectForKey:@"DATA"];
-            /*NSInteger integerValue;
-            [dictData getBytes:&integerValue length:sizeof(NSInteger)];
-            NSData re
-            NSInteger intValueBE = CFSwapInt32HostToBig(integerValue);
-            NSNumber* number = [NSNumber numberWithInteger:intValueBE];*/
+            NSData* dictData = relevantDict[@"DATA"];
             resultValue = dictData;
         }
     }

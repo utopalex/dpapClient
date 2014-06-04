@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Alexander Lehmann. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface dpapClientTests : SenTestCase
+@interface dpapClientTests : XCTestCase
 
 @end
