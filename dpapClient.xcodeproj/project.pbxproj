@@ -175,26 +175,15 @@
 		FA17BEC9165833F7008B9241 /* dpapClient */ = {
 			isa = PBXGroup;
 			children = (
+				FAFBFD94193EE9E000C30FBF /* Model */,
+				FAFBFD93193EE9B900C30FBF /* Controller */,
 				FA17BECA165833F7008B9241 /* Supporting Files */,
 				FA17BED2165833F7008B9241 /* AppDelegate.h */,
+				FA17BED3165833F7008B9241 /* AppDelegate.m */,
 				FA320A131711D3ED00D66CEE /* AppSettings.h */,
 				FA320A141711D3ED00D66CEE /* AppSettings.m */,
-				FA17BED3165833F7008B9241 /* AppDelegate.m */,
 				FA17BEDB165833F7008B9241 /* MainStoryboard_iPhone.storyboard */,
 				FA17BEDE165833F7008B9241 /* MainStoryboard_iPad.storyboard */,
-				FA17BEE1165833F7008B9241 /* ViewController.h */,
-				FA17BEE2165833F7008B9241 /* ViewController.m */,
-				FA2F881E16F73F5C00F87DAE /* ContainerViewController.h */,
-				FA2F881F16F73F5C00F87DAE /* ContainerViewController.m */,
-				FA320A181712008600D66CEE /* AlbumViewController.h */,
-				FA320A191712008600D66CEE /* AlbumViewController.m */,
-				FA320A1B171206AC00D66CEE /* ItemViewController.h */,
-				FA320A1C171206AC00D66CEE /* ItemViewController.m */,
-				FA320A1D171206AC00D66CEE /* ItemViewController.xib */,
-				FA14E4FA16584F2500B3AB11 /* DMAPDecoder.h */,
-				FA14E4FB16584F2500B3AB11 /* DMAPDecoder.m */,
-				FAF8DCB7165AD4EC002E15B7 /* DMAPSession.h */,
-				FAF8DCB8165AD4EC002E15B7 /* DMAPSession.m */,
 			);
 			path = dpapClient;
 			sourceTree = "<group>";
@@ -264,6 +253,33 @@
 				FA17BF1D1658362A008B9241 /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		FAFBFD93193EE9B900C30FBF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA17BEE1165833F7008B9241 /* ViewController.h */,
+				FA17BEE2165833F7008B9241 /* ViewController.m */,
+				FA2F881E16F73F5C00F87DAE /* ContainerViewController.h */,
+				FA2F881F16F73F5C00F87DAE /* ContainerViewController.m */,
+				FA320A181712008600D66CEE /* AlbumViewController.h */,
+				FA320A191712008600D66CEE /* AlbumViewController.m */,
+				FA320A1B171206AC00D66CEE /* ItemViewController.h */,
+				FA320A1C171206AC00D66CEE /* ItemViewController.m */,
+				FA320A1D171206AC00D66CEE /* ItemViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FAFBFD94193EE9E000C30FBF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA14E4FA16584F2500B3AB11 /* DMAPDecoder.h */,
+				FA14E4FB16584F2500B3AB11 /* DMAPDecoder.m */,
+				FAF8DCB7165AD4EC002E15B7 /* DMAPSession.h */,
+				FAF8DCB8165AD4EC002E15B7 /* DMAPSession.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
