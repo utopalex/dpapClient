@@ -16,7 +16,7 @@
     [request setValue:@"iPhoto/9.2.1  (Macintosh; N; PPC)" forHTTPHeaderField:@"User-Agent"];
     if (authorize)
     {
-        [request setValue:@"Basic YWRyaWFuYTpuZXRzY2FwZQ==" forHTTPHeaderField:@"Authorization"];
+        [request setValue:@"Basic ==" forHTTPHeaderField:@"Authorization"];
     }
     return request;
 }
